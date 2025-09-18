@@ -82,7 +82,7 @@ export default function Hero() {
       </article>
       <article className="lg:flex hidden justify-center w-full pt-[40px] relative">
         <Image
-          src="/visual.png"
+          src="/Visual.png"
           alt="visualizer"
           width={1000}
           height={1000}
@@ -103,7 +103,7 @@ export default function Hero() {
           className="absolute left-[8%] z-1 top-[20%] "
         />
         <Image
-          src="/cards.png"
+          src="/Cards.png"
           width={400}
           height={300}
           alt="card_three"
