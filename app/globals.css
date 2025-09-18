@@ -19,7 +19,6 @@
   }
 }
 
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -34,4 +33,14 @@ body {
   width: 100px;
   height: 100px;
   /* object-fit: ; */
+}
+
+.scrollbar-0 {
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-0::-webkit-scrollbar {
+  display: none;
 }

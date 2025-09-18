@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import useSideBar from "../context/sidebar-context";
 import { UserRound } from "lucide-react";
 import Link from "next/link";
+import { MenuIcon } from "lucide-react";
+import UseIsMobile from "../context/ismobile-context";
 
 export default function Navbar() {
   const [screenSize, setScreenSize] = useState({
     width: 0,
   });
-  const [isMobile, setIsMobile] = useState(false);
+
+  const { isMobile, setIsMobile } = UseIsMobile();
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,7 +42,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`h-[80px] w-full flex align-center bg-white ${
+      className={`h-[80px] w-full flex align-center bg-white sticky top-[0px] z-100  ${
         isMobile ? "px-2 justify-start" : "px-8 justify-evenly"
       }`}
     >
@@ -53,9 +56,40 @@ export default function Navbar() {
       />
       {isMobile ? (
         <>
-          <section className="flex w-full justify-end items-center">
-            <div onClick={sideBarToggler}>{isToggled ? "close" : "open"}</div>
-          </section>
+          <div
+            onClick={sideBarToggler}
+            className="flex justify-end items-center w-full absolute right-0 top-1/2"
+          >
+            {isToggled ? "close" : <MenuIcon size={24} color="#182700" />}
+          </div>
+
+          <nav className="flex w-[80%] h-dvh bg-[#182700] absolute top-[80px] z-100 right-0">
+            <ul className="flex flex-col justify-start items-start h-full text-left gap-5 pl-[20px] pt-[30px]">
+              {navlink.map((item) => (
+                <li key={item.id} className="text-white text-[18px]">
+                  <Link href={""} className="flex">
+                    {item.name} {item.icon}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex lg:flex-row flex-col justify-end items-center w-[40%] gap-8 relative">
+              <Button
+                text="Sign In"
+                className={
+                  "text-black bg-transparent border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light absolute top-[75%]"
+                }
+                icon={<UserRound size={20} />}
+              />
+              <Button
+                text="Get a Demo"
+                className={
+                  "text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+                }
+              />
+            </div>
+          </nav>
         </>
       ) : (
         <>

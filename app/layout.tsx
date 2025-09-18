@@ -4,6 +4,7 @@ import "./globals.css";
 import { inter } from "./ui/fonts";
 
 import { SideBarProvider } from "./providers/sidebar-provider";
+import { IsMobileProvider } from "./providers/ismobile-provider";
 
 export const metadata: Metadata = {
   title: "Financo",
@@ -17,8 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <SideBarProvider>{children}</SideBarProvider>
+      <body className={`${inter.className} antialiased h-vh`}>
+        <IsMobileProvider>
+          <SideBarProvider>{children}</SideBarProvider>
+        </IsMobileProvider>
       </body>
     </html>
   );
