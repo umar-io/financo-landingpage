@@ -3,123 +3,112 @@
 import Image from "next/image";
 import { navlink } from "./data/navbar";
 import Button from "./button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useSideBar from "../context/sidebar-context";
-import { UserRound } from "lucide-react";
+import { UserRound, MenuIcon, X } from "lucide-react";
 import Link from "next/link";
-import { MenuIcon } from "lucide-react";
 import UseIsMobile from "../context/ismobile-context";
 
 export default function Navbar() {
-  const [screenSize, setScreenSize] = useState({
-    width: 0,
-  });
-
+  const { isToggled, sideBarToggler } = useSideBar();
   const { isMobile, setIsMobile } = UseIsMobile();
 
+  // Unified useEffect to handle mobile state
   useEffect(() => {
     const handleResize = () => {
-      setScreenSize({
-        width: window.innerWidth,
-      });
       setIsMobile(window.innerWidth <= 768);
     };
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", handleResize);
-      handleResize();
-    }
+    // Set initial state on mount
+    handleResize();
 
-    setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on unmount
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("resize", handleResize);
-      }
+      window.removeEventListener("resize", handleResize);
     };
-  }, []);
-
-  const { isToggled, sideBarToggler } = useSideBar();
+  }, [setIsMobile]);
 
   return (
     <header
-      className={`h-[80px] w-full flex align-center bg-white sticky top-[0px] z-100  ${
-        isMobile ? "px-2 justify-start" : "px-8 justify-evenly"
-      }`}
+      className={`
+        h-[80px] w-full flex items-center bg-white sticky top-0 z-50
+        ${isMobile ? "px-4 justify-between" : "px-8 justify-center"}
+      `}
     >
       <Image
         src="/brandlogo.png"
         width={150}
         height={150}
         alt="Navbar brand"
-        loading="lazy"
-        className={`fit ${isMobile ? "mobile-brand" : ""} `}
+        className="fit"
       />
-      {isMobile ? (
+
+      {/* Desktop Navigation */}
+      <nav className={`${isMobile ? "hidden" : "flex"} w-1/2 justify-evenly items-center`}>
+        <ul className="flex justify-evenly gap-8 w-full">
+          {navlink.map((item) => (
+            <li key={item.id} className="text-black text-[16px] flex items-center">
+              <Link href="#">
+                {item.name} {item.icon}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Desktop Buttons */}
+      <div className={`${isMobile ? "hidden" : "flex"} w-[40%] justify-end items-center gap-8`}>
+        <Button
+          text="Sign In"
+          className="text-black bg-transparent border-0 w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+          icon={<UserRound size={20} />}
+        />
+        <Button
+          text="Get a Demo"
+          className="text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+        />
+      </div>
+
+      {/* Mobile-only elements */}
+      {isMobile && (
         <>
-          <div
-            onClick={sideBarToggler}
-            className="flex justify-end items-center w-full absolute right-0 top-1/2"
-          >
-            {isToggled ? "close" : <MenuIcon size={24} color="#182700" />}
+          {/* Mobile Menu Icon */}
+          <div onClick={sideBarToggler} className="p-2 cursor-pointer">
+            {isToggled ? <X size={24} color="#182700" /> : <MenuIcon size={24} color="#182700" />}
           </div>
 
-          <nav className="flex w-[80%] h-dvh bg-[#182700] absolute top-[80px] z-100 right-0">
-            <ul className="flex flex-col justify-start items-start h-full text-left gap-5 pl-[20px] pt-[30px]">
+          {/* Mobile Sidebar */}
+          <nav
+            className={`
+              ${isToggled ? "translate-x-0" : "translate-x-full"}
+              w-[80%] h-dvh bg-[#182700] fixed top-[80px] right-0 z-40 transition-transform duration-500 ease-in-out flex flex-col items-start pt-[100px] pl-6 gap-6
+              `}
+          >
+            {/* Sidebar Content */}
+            <ul className="flex flex-col gap-5">
               {navlink.map((item) => (
                 <li key={item.id} className="text-white text-[18px]">
-                  <Link href={""} className="flex">
+                  <Link href="#">
                     {item.name} {item.icon}
                   </Link>
                 </li>
               ))}
             </ul>
 
-            <div className="flex lg:flex-row flex-col justify-end items-center w-[40%] gap-8 relative">
+            <div className="flex flex-col gap-4 mt-8">
               <Button
                 text="Sign In"
-                className={
-                  "text-black bg-transparent border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light absolute top-[75%]"
-                }
+                className="text-white bg-transparent border-white border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
                 icon={<UserRound size={20} />}
               />
               <Button
                 text="Get a Demo"
-                className={
-                  "text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
-                }
+                className="text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
               />
             </div>
           </nav>
-        </>
-      ) : (
-        <>
-          <nav className="w-[50%] items-center ">
-            <ul className="flex justify-evenly gap-8 items-center h-full">
-              {navlink.map((item) => (
-                <li key={item.id} className="text-black text-[16px]">
-                  <Link href={""} className="flex">
-                    {item.name} {item.icon}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="flex justify-end items-center w-[40%] gap-8">
-            <Button
-              text="Sign In"
-              className={
-                "text-black bg-transparent border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
-              }
-              icon={<UserRound size={20} />}
-            />
-            <Button
-              text="Get a Demo"
-              className={
-                "text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
-              }
-            />
-          </div>
         </>
       )}
     </header>
