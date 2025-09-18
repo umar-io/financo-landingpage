@@ -103,7 +103,7 @@ export default function Hero() {
           className="absolute left-[8%] z-1 top-[20%] "
         />
         <Image
-          src="/Cards.png"
+          src="/cards.png"
           width={400}
           height={300}
           alt="card_three"
