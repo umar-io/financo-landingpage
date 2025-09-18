@@ -96,14 +96,14 @@ export default function Hero() {
           className="absolute right-[7%] top-[14%]"
         />
         <Image
-          src="/card.png"
+          src="/Card.png"
           width={200}
           height={200}
           alt="card_two"
           className="absolute left-[8%] z-1 top-[20%] "
         />
         <Image
-          src="/cards.png"
+          src="/Cards.png"
           width={400}
           height={300}
           alt="card_three"
