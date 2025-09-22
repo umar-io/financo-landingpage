@@ -46,12 +46,21 @@ export default function Navbar() {
       />
 
       {/* Desktop Navigation */}
-      <nav className={`${isMobile ? "hidden" : "flex"} w-1/2 justify-evenly items-center`}>
+      <nav
+        className={`${
+          isMobile ? "hidden" : "flex"
+        } w-1/2 justify-evenly items-center`}
+      >
         <ul className="flex justify-evenly gap-8 w-full">
           {navlink.map((item) => (
-            <li key={item.id} className="text-black text-[16px] flex items-center">
+            <li
+              key={item.id}
+              className="text-black text-[16px] flex items-center"
+            >
               <Link href="#">
-                {item.name} {item.icon}
+                <span className="flex w-fit">
+                  {item.name} {item.icon}
+                </span>
               </Link>
             </li>
           ))}
@@ -59,7 +68,11 @@ export default function Navbar() {
       </nav>
 
       {/* Desktop Buttons */}
-      <div className={`${isMobile ? "hidden" : "flex"} w-[40%] justify-end items-center gap-8`}>
+      <div
+        className={`${
+          isMobile ? "hidden" : "flex"
+        } w-[40%] justify-end items-center gap-8`}
+      >
         <Button
           text="Sign In"
           className="text-black bg-transparent border-0 w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
@@ -76,7 +89,11 @@ export default function Navbar() {
         <>
           {/* Mobile Menu Icon */}
           <div onClick={sideBarToggler} className="p-2 cursor-pointer">
-            {isToggled ? <X size={24} color="#182700" /> : <MenuIcon size={24} color="#182700" />}
+            {isToggled ? (
+              <X size={24} color="#182700" />
+            ) : (
+              <MenuIcon size={24} color="#182700" />
+            )}
           </div>
 
           {/* Mobile Sidebar */}
@@ -89,9 +106,14 @@ export default function Navbar() {
             {/* Sidebar Content */}
             <ul className="flex flex-col gap-5">
               {navlink.map((item) => (
-                <li key={item.id} className="text-white text-[18px]">
+                <li
+                  key={item.id}
+                  className="text-white text-[18px] flex w-fit gap-2"
+                >
                   <Link href="#">
-                    {item.name} {item.icon}
+                    <span className="w-fit flex">
+                      {item.name} {item.icon}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -100,7 +122,7 @@ export default function Navbar() {
             <div className="flex flex-col gap-4 mt-8">
               <Button
                 text="Sign In"
-                className="text-white bg-transparent border-white border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+                className="text-black bg-white border-white border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
                 icon={<UserRound size={20} />}
               />
               <Button
