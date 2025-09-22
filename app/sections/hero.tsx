@@ -45,7 +45,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="flex flex-col justify-start p-8 items-start w-full bg-[#EFEFEF]">
+    <section className="flex flex-col justify-start p-8 items-start w-full bg-[#efefef]">
       <article className="lg:flex-row flex w-full justify-start items-start py-8 flex-col lg:gap-0.5 gap-8">
         <aside className="lg:w-1/2 w-full lg:justify-start justify-center capitalize font-bold">
           <small className="lg:text-[12px] text-[#fff]">

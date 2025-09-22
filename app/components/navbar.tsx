@@ -5,7 +5,7 @@ import { navlink } from "./data/navbar";
 import Button from "./button";
 import { useEffect } from "react";
 import useSideBar from "../context/sidebar-context";
-import { UserRound, MenuIcon, X } from "lucide-react";
+import { UserRound, MenuIcon, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import UseIsMobile from "../context/ismobile-context";
 
@@ -80,7 +80,9 @@ export default function Navbar() {
         />
         <Button
           text="Get a Demo"
-          className="text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+          className="text-white bg-black w-fit px-3 py-2 rounded-3xl text-[16px] font-light"
+          iconClassName="p-2 flex justify-center items-center bg-[#fff] rounded-[50%] w-fit text-[#182700]"
+          icon={<ArrowRight size={20} />}
         />
       </div>
 
@@ -122,12 +124,14 @@ export default function Navbar() {
             <div className="flex flex-col gap-4 mt-8">
               <Button
                 text="Sign In"
-                className="text-black bg-white border-white border-[1px] w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+                className="text-black bg-white border-white border-[1px] w-fit px-3 py-2 rounded-3xl text-[16px] font-light"
                 icon={<UserRound size={20} />}
               />
               <Button
                 text="Get a Demo"
-                className="text-white bg-black w-fit px-3 py-2 rounded-2xl text-[16px] font-light"
+                className="text-white bg-black w-fit px-3 py-2 rounded-3xl text-[16px] font-light"
+                iconClassName="p-2 flex justify-center items-center bg-[#fff] rounded-[50%] w-fit text-[#182700]"
+                icon={<ArrowRight size={20} />}
               />
             </div>
           </nav>
